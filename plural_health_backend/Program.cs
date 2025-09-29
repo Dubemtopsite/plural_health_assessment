@@ -25,6 +25,7 @@ builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<LogAuditService>();
 builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<GeneralService>();
+builder.Services.AddScoped<PaymentService>();
 
 builder.Services.AddHttpContextAccessor(); 
 var app = builder.Build();

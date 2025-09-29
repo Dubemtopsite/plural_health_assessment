@@ -6,9 +6,11 @@ import * as TanStackQueryProvider from './integrations/tanstack-query/root-provi
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
-
+import '@mantine/core/styles.css'
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
+// eslint-disable-next-line import/order
+import { MantineProvider } from '@mantine/core'
 
 // Create a new router instance
 
@@ -38,7 +40,9 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
-        <RouterProvider router={router} />
+        <MantineProvider>
+          <RouterProvider router={router} />
+        </MantineProvider>
       </TanStackQueryProvider.Provider>
     </StrictMode>,
   )
