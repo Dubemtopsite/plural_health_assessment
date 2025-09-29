@@ -8,7 +8,8 @@ export type ServiceHandler<Payload, Return> = (
 
 export interface ApiResponse<Data> {
   data?: Data
-  error: boolean
+  success: boolean
   code?: any
   message: string
+  errors?: any
 }

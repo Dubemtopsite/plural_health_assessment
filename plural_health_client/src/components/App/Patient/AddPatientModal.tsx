@@ -58,7 +58,7 @@ export const AddPatientModal = () => {
       loadingStore.setLoading('Processing request')
       const { status, data } = await CreatePatient(axiosClient, values)
 
-      if (status !== 200 || data.error) {
+      if (status !== 200 || data.success) {
         throw Error(data.message || 'Error processing request')
       }
 

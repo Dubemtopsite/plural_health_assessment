@@ -10,7 +10,7 @@ interface LoginResponseModel {
 
 export const serverApiLink = () => {
   const host = window.location.hostname
-  return `http://${host}:5278/v1/lfxedu-operator`
+  return `http://${host}:5278/api`
 }
 
 const axiosClient = axios.create({

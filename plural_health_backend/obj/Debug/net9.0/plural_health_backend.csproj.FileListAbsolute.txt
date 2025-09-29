@@ -142,3 +142,4 @@
 /home/chidubem/ProjectFolder/plural_health/plural_health_backend/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /home/chidubem/ProjectFolder/plural_health/plural_health_backend/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /home/chidubem/ProjectFolder/plural_health/plural_health_backend/bin/Debug/net9.0/Nanoid.dll
+/home/chidubem/ProjectFolder/plural_health/plural_health_backend/obj/Debug/net9.0/plural_health_backend.sourcelink.json
