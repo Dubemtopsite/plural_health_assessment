@@ -32,7 +32,7 @@ namespace plural_health_backend.Services
         {
             try
             {
-                var query = _context.Patients.Include(a => a.Wallet).AsQueryable();
+                var query = _context.Patients.Include(a => a.Wallet).Include(a => a.Insurance).AsQueryable();
                 if (!string.IsNullOrEmpty(search))
                 {
                     query = query.Where(p =>

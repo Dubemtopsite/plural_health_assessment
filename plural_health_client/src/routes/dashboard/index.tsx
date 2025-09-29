@@ -44,7 +44,7 @@ function RouteComponent() {
 
       <>
         {isRequestLoading && <PageLoader />}
-        {isRequestError && <PageErrorComponent />}
+        {isRequestError && <PageErrorComponent onReloadClicked={refetch} />}
       </>
     </div>
   )

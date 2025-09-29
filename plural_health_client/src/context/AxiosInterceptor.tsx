@@ -15,6 +15,9 @@ export const serverApiLink = () => {
 
 const axiosClient = axios.create({
   baseURL: serverApiLink(),
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
 })
 
 interface AuthAxiosContextValueModel {

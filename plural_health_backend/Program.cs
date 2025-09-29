@@ -27,7 +27,15 @@ builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<GeneralService>();
 builder.Services.AddScoped<PaymentService>();
 
-builder.Services.AddHttpContextAccessor(); 
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,7 +48,7 @@ if (app.Environment.IsDevelopment())
     });
     
 }
-
+app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 
 var summaries = new[]
