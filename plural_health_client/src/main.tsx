@@ -9,6 +9,7 @@ import * as TanStackQueryProvider from './integrations/tanstack-query/root-provi
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
 import '@mantine/core/styles.css'
+import '@mantine/dates/styles.css'
 import '@/assets/css/app.css'
 import reportWebVitals from './reportWebVitals.ts'
 // eslint-disable-next-line import/order

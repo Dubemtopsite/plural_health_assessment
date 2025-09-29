@@ -1,7 +1,7 @@
 @reference './../app.css';
 
 .root {
-  @apply text-sm font-[500] tracking-wider ring-offset-white dark:ring-offset-black md:text-base;
+  @apply text-base font-[600] tracking-wider ring-offset-white dark:ring-offset-black md:text-base;
 
   &[data-variant='filled'],
   &[data-variant='primary'] {
