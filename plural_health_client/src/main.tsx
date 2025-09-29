@@ -16,6 +16,7 @@ import reportWebVitals from './reportWebVitals.ts'
 import { MantineProvider } from '@mantine/core'
 import { mantimeTheme } from './theme/mantine-theme.tsx'
 import { AxiosInterceptorContext } from './context/AxiosInterceptor.tsx'
+import { PageLoaderOverlay } from './components/Base/PageLoaderOverlay/index.tsx'
 
 // Create a new router instance
 
@@ -57,7 +58,9 @@ if (rootElement && !rootElement.innerHTML) {
           <ModalsProvider>
             <QueryClientProvider client={queryClient}>
               <AxiosInterceptorContext>
-                <RouterProvider router={router} />
+                <PageLoaderOverlay>
+                  <RouterProvider router={router} />
+                </PageLoaderOverlay>
               </AxiosInterceptorContext>
             </QueryClientProvider>
           </ModalsProvider>

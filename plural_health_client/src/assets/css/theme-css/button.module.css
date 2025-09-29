@@ -9,7 +9,7 @@
   }
 
   &[data-variant='primary-outline'] {
-    @apply h-[40px] w-full rounded-[10px] bg-transparent border-brand focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:text-brand dark:focus:ring-brand md:h-[40px];
+    @apply h-[40px] w-full rounded-[10px] !text-brand bg-transparent border-brand focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:text-brand dark:focus:ring-brand md:h-[40px];
   }
 
   /* &[data-variant="secondary"] {

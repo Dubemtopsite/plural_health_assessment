@@ -1,4 +1,5 @@
 import {
+  Accordion,
   ActionIcon,
   Button,
   Modal,
@@ -8,12 +9,20 @@ import {
   TextInput,
 } from '@mantine/core'
 import { useDisclosure, useMediaQuery } from '@mantine/hooks'
-import { X } from 'lucide-react'
+import { CalendarDays, X } from 'lucide-react'
 import { AddCircle } from 'iconsax-reactjs'
 import { useForm } from '@mantine/form'
 import { DatePickerInput } from '@mantine/dates'
+import { yupResolver } from 'mantine-form-yup-resolver'
+import type { CreateEditPatientModel } from '@/validator'
+import { CreateEditPatientValidator } from '@/validator'
+import { useAppModalToast } from '@/hook/useModalToast'
+import { useLoadingStore } from '@/store/loadingStore'
+import { CreatePatient } from '@/services/patient-service'
+import axiosClient from '@/context/AxiosInterceptor'
 
 export const AddPatientModal = () => {
+  const { openModal } = useAppModalToast()
   const [opened, { open, close }] = useDisclosure(false)
   const isMobile = useMediaQuery('(max-width: 50em)')
 
@@ -36,11 +45,34 @@ export const AddPatientModal = () => {
       endDate: new Date(),
       isPatientNew: true,
     },
-    // validate: yupResolver(LoginValidator),
+    validate: yupResolver(CreateEditPatientValidator),
   })
 
-  const handleSubmit = (values: any) => {
-    console.log(values)
+  const handleSubmit = async (
+    values: CreateEditPatientModel,
+    action: 'CLOSE' | 'APPOINTMENT',
+  ) => {
+    const loadingStore = useLoadingStore.getState()
+
+    try {
+      loadingStore.setLoading('Processing request')
+      const { status, data } = await CreatePatient(axiosClient, values)
+
+      if (status !== 200 || data.error) {
+        throw Error(data.message || 'Error processing request')
+      }
+
+      loadingStore.endLoading()
+      close()
+      form.reset()
+    } catch (error) {
+      loadingStore.endLoading()
+      //  console.log((error as any).message ?? "Error");
+      openModal({
+        title: 'Error',
+        message: (error as any).message ?? 'Error completing action',
+      })
+    }
   }
 
   return (
@@ -96,7 +128,7 @@ export const AddPatientModal = () => {
           </div>
 
           <form
-            onSubmit={form.onSubmit((values) => handleSubmit(values))}
+            onSubmit={form.onSubmit((values) => handleSubmit(values, 'CLOSE'))}
             className="flex flex-col gap-5 pt-5 "
           >
             <div className="grid grid-cols-4 gap-3">
@@ -134,6 +166,8 @@ export const AddPatientModal = () => {
               <DatePickerInput
                 placeholder="Date of Birth"
                 withAsterisk
+                rightSection={<CalendarDays size={15} />}
+                rightSectionPointerEvents="none"
                 key={form.key('dateOfBirth')}
                 {...form.getInputProps('dateOfBirth')}
               />
@@ -201,6 +235,80 @@ export const AddPatientModal = () => {
                 key={form.key('state')}
                 {...form.getInputProps('state')}
               />
+            </div>
+
+            <div>
+              <Accordion variant="filled" defaultValue={''}>
+                <Accordion.Item value="insurance">
+                  <Accordion.Control className="!bg-[#DFE2E9] rounded-[10px]">
+                    <h5 className="text-lg font-semibold">
+                      Insurance provider details
+                    </h5>
+                  </Accordion.Control>
+                  <Accordion.Panel>
+                    <div className="flex flex-col gap-5">
+                      <h5 className="font-semibold text-base">
+                        Insurance provider
+                      </h5>
+
+                      <div className="grid grid-cols-4 gap-3">
+                        <TextInput
+                          type="text"
+                          placeholder="Insurer name"
+                          withAsterisk
+                          key={form.key('insurer')}
+                          {...form.getInputProps('insurer')}
+                        />
+                        <Select
+                          placeholder="Insurance plan"
+                          allowDeselect={false}
+                          searchable
+                          data={['Basic Plan', 'Standard Plan', 'Premium Plan']}
+                          withAsterisk
+                          key={form.key('insurancePlan')}
+                          {...form.getInputProps('insurancePlan')}
+                        />
+                        <DatePickerInput
+                          placeholder="Start date"
+                          withAsterisk
+                          rightSection={<CalendarDays size={15} />}
+                          rightSectionPointerEvents="none"
+                          key={form.key('startDate')}
+                          {...form.getInputProps('startDate')}
+                        />
+
+                        <DatePickerInput
+                          placeholder="End date"
+                          withAsterisk
+                          rightSection={<CalendarDays size={15} />}
+                          rightSectionPointerEvents="none"
+                          key={form.key('endDate')}
+                          {...form.getInputProps('endDate')}
+                        />
+                      </div>
+                    </div>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              </Accordion>
+            </div>
+
+            <div className="flex flex-row justify-end gap-4 items-center w-full bottom-0 right-0 left-0 px-4 pt-3 pb-1 bg-[var(--mantine-color-body)]">
+              <Button
+                variant="primary-outline"
+                type="submit"
+                className="!w-auto"
+              >
+                Save & close
+              </Button>
+              <Button
+                variant="primary"
+                className="!w-auto"
+                onClick={() =>
+                  form.onSubmit((values) => handleSubmit(values, 'APPOINTMENT'))
+                }
+              >
+                Create application
+              </Button>
             </div>
           </form>
         </div>
