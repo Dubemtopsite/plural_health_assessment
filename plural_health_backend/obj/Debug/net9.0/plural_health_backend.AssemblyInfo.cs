@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("plural_health_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d61812d5c4d93d51b9193b01352b65e1e501568")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5e0cd5737e4ab2b67fe3864b9a7b77cf12f3515")]
 [assembly: System.Reflection.AssemblyProductAttribute("plural_health_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("plural_health_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
