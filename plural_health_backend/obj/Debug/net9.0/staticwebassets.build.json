@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "Cg6H37fwyb4WnDqJIZlWEjLB4Et4DlFVOwO8LBtdQxM=",
+  "Source": "plural_health_backend",
+  "BasePath": "_content/plural_health_backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

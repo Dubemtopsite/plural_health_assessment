@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/plural_health_backend.props" />
+</Project>

@@ -1,0 +1,6 @@
+@plural_health_backend_HostAddress = http://localhost:5278
+
+GET {{plural_health_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
