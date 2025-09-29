@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 import { ModalsProvider } from '@mantine/modals'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 
 // Import the generated route tree
@@ -13,6 +14,7 @@ import reportWebVitals from './reportWebVitals.ts'
 // eslint-disable-next-line import/order
 import { MantineProvider } from '@mantine/core'
 import { mantimeTheme } from './theme/mantine-theme.tsx'
+import { AxiosInterceptorContext } from './context/AxiosInterceptor.tsx'
 
 // Create a new router instance
 
@@ -26,6 +28,14 @@ const router = createRouter({
   scrollRestoration: true,
   defaultStructuralSharing: true,
   defaultPreloadStaleTime: 0,
+})
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
 })
 
 // Register the router instance for type safety
@@ -44,7 +54,11 @@ if (rootElement && !rootElement.innerHTML) {
       <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
         <MantineProvider theme={mantimeTheme} defaultColorScheme="light">
           <ModalsProvider>
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+              <AxiosInterceptorContext>
+                <RouterProvider router={router} />
+              </AxiosInterceptorContext>
+            </QueryClientProvider>
           </ModalsProvider>
         </MantineProvider>
       </TanStackQueryProvider.Provider>

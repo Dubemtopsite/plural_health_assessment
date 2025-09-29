@@ -17,7 +17,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     <>
       <div className="bg-[#EDF0F8] min-h-screen w-full">
         <Header />
-        <main className="pt-[48px] w-full ">
+        <main className="pt-[48px] w-full brand-container ">
           <Outlet />
         </main>
       </div>
