@@ -7,6 +7,8 @@ import { FetchPatient } from '@/services/patient-service'
 import axiosClient from '@/context/AxiosInterceptor'
 import { PageLoader } from '@/components/Base/PageLoader'
 import { PageErrorComponent } from '@/components/Base/PageErrorComponent'
+import { PatientTableComponent } from '@/components/App/Patient/PatientTableComponent'
+import { EmptyContentComponent } from '@/components/Base/EmptyContentComponent'
 
 export const Route = createFileRoute('/dashboard/')({
   component: RouteComponent,
@@ -44,7 +46,15 @@ function RouteComponent() {
 
       <>
         {isRequestLoading && <PageLoader />}
-        {isRequestError && <PageErrorComponent onReloadClicked={refetch} />}
+        {!isRequestLoading && !isRequestError && data && data.length > 0 && (
+          <PatientTableComponent data={data} />
+        )}
+        {!isRequestLoading && !isRequestError && data && data.length === 0 && (
+          <EmptyContentComponent />
+        )}
+        {!isRequestLoading && isRequestError && (
+          <PageErrorComponent onReloadClicked={refetch} />
+        )}
       </>
     </div>
   )

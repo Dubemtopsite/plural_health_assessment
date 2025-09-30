@@ -1,0 +1,36 @@
+import { Table } from '@mantine/core'
+import { PatientTableItem } from './PatientTableItem'
+import type { PatientListItem } from '@/model/patient-model'
+
+interface Props {
+  data: Array<PatientListItem>
+}
+
+export const PatientTableComponent = ({ data }: Props) => {
+  return (
+    <div>
+      <Table.ScrollContainer minWidth={420}>
+        <Table>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th w={30} />
+              <Table.Th w={30}>#</Table.Th>
+              <Table.Th>Patient Information</Table.Th>
+              <Table.Th></Table.Th>
+              <Table.Th>CLinic</Table.Th>
+              <Table.Th>Wallet balance ()</Table.Th>
+              <Table.Th>Time/Date</Table.Th>
+              <Table.Th>Status</Table.Th>
+              <Table.Th w={30}></Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            {data.map((item, index) => {
+              return <PatientTableItem item={item} index={index} />
+            })}
+          </Table.Tbody>
+        </Table>
+      </Table.ScrollContainer>
+    </div>
+  )
+}

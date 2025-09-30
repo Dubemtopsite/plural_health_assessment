@@ -7,7 +7,7 @@
 
 html,
 body {
-  @apply !bg-[var(--background-color)] dark:!bg-[var(--background-color-dark)] !text-gray-900 dark:!text-gray-50;
+  @apply !bg-[var(--background-color)] dark:!bg-[var(--background-color-dark)] !text-[#051438] dark:!text-[#051438];
 
   /* @media (prefers-color-scheme: dark) {
     color-scheme: dark;
