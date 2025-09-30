@@ -14,17 +14,21 @@ import { AddCircle } from 'iconsax-reactjs'
 import { useForm } from '@mantine/form'
 import { DatePickerInput } from '@mantine/dates'
 import { yupResolver } from 'mantine-form-yup-resolver'
+import { useQueryClient } from '@tanstack/react-query'
 import type { CreateEditPatientModel } from '@/validator'
 import { CreateEditPatientValidator } from '@/validator'
 import { useAppModalToast } from '@/hook/useModalToast'
 import { useLoadingStore } from '@/store/loadingStore'
 import { CreatePatient } from '@/services/patient-service'
 import axiosClient from '@/context/AxiosInterceptor'
+import dayjs from 'dayjs'
 
 export const AddPatientModal = () => {
   const { openModal } = useAppModalToast()
   const [opened, { open, close }] = useDisclosure(false)
   const isMobile = useMediaQuery('(max-width: 50em)')
+
+  const queryClient = useQueryClient()
 
   const form = useForm({
     initialValues: {
@@ -56,12 +60,16 @@ export const AddPatientModal = () => {
 
     try {
       loadingStore.setLoading('Processing request')
-      const { status, data } = await CreatePatient(axiosClient, values)
+      const { status, data } = await CreatePatient(axiosClient, {
+        ...values,
+        dateOfBirth: dayjs(values.dateOfBirth).format('YYYY-MM-DD') as any,
+      })
 
       if (status !== 200 || data.success) {
         throw Error(data.message || 'Error processing request')
       }
 
+      queryClient.invalidateQueries({ queryKey: ['patient-list'] })
       loadingStore.endLoading()
       close()
       form.reset()

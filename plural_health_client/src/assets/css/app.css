@@ -35,3 +35,7 @@ body {
 .comment-editor-container .ck-content {
   min-height: 100px;
 }
+
+.patient-table tr th {
+  @apply !text-[#A6AFC2];
+}

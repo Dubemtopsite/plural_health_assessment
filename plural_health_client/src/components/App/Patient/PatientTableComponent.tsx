@@ -8,7 +8,7 @@ interface Props {
 
 export const PatientTableComponent = ({ data }: Props) => {
   return (
-    <div>
+    <div className="patient-table">
       <Table.ScrollContainer minWidth={420}>
         <Table>
           <Table.Thead>
@@ -17,9 +17,9 @@ export const PatientTableComponent = ({ data }: Props) => {
               <Table.Th w={30}>#</Table.Th>
               <Table.Th>Patient Information</Table.Th>
               <Table.Th></Table.Th>
-              <Table.Th>CLinic</Table.Th>
-              <Table.Th>Wallet balance ()</Table.Th>
-              <Table.Th>Time/Date</Table.Th>
+              <Table.Th>Clinic</Table.Th>
+              <Table.Th className="!w-[115px]">Wallet bal. (₦)</Table.Th>
+              <Table.Th className="!text-center">Time/Date</Table.Th>
               <Table.Th>Status</Table.Th>
               <Table.Th w={30}></Table.Th>
             </Table.Tr>
